@@ -77,37 +77,45 @@
     </div>
 
     <script>
-        async function predict() {
-            const userInput = document.getElementById('userInput').value;
+    async function predict() {
+    const userInput = document.getElementById('userInput').value.trim();
 
-            // Make an API call to your AWS Lambda function
-            const lambdaEndpoint = 'https://ia5199ku6g.execute-api.ap-south-1.amazonaws.com/fortunetellerfunction';
-
-            try {
-                const response = await fetch(lambdaEndpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ question: userInput }),
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    displayResult(result.prediction);
-                } else {
-                    displayResult('Error predicting the future. Try again later.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                displayResult('Error predicting the future. Try again later.');
-            }
+    // Check if userInput is not null or empty
+     if (!userInput) {
+           // Display a message or take appropriate action for empty input
+           displayResult('Please enter a question before predicting.');
+           return;
         }
 
-        function displayResult(result) {
-            const resultElement = document.getElementById('predictionResult');
-            resultElement.innerText = result;
+    // Make an API call to your AWS Lambda function
+    const lambdaEndpoint = 'https://ia5199ku6g.execute-api.ap-south-1.amazonaws.com/fortunetellerfunction';
+
+    try {
+        const response = await fetch(lambdaEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ question: userInput }),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            displayResult(result.prediction);
+        } else {
+            displayResult('Error predicting the future. Try again later.');
         }
+    } catch (error) {
+        console.error('Error:', error);
+        displayResult('Error predicting the future. Try again later.');
+    }
+    }
+
+    function displayResult(result) {
+        const resultElement = document.getElementById('predictionResult');
+        resultElement.innerText = result;
+    }
+
     </script>
 </body>
 </html>
