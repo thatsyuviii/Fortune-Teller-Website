@@ -53,6 +53,10 @@
             background-color: #45a049;
         }
 
+        .predict-btn:active {
+            background-color: aqua;
+        }
+
         .prediction-result {
             font-size: 20px;
             font-weight: bolder;
@@ -66,7 +70,7 @@
         <video autoplay loop muted playsinline>
             <source src="video.webm" type="video/webm">
         </video>
-        <p class="ask-text">Ask the Crystal ball</p>
+        <p class="ask-text">Ask To Crystal Ball</p>
         <input type="text" id="userInput" class="user-input" placeholder="Type your question...">
         <button onclick="predict()" class="predict-btn">Predict</button>
         <div id="predictionResult" class="prediction-result"></div>
